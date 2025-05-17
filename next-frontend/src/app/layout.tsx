@@ -1,16 +1,28 @@
 import { ThemeProvider } from "@/components/theme-provider";
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Work_Sans,
+  Quicksand,
+  Questrial,
+} from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const workSans = Work_Sans({
+  variable: "--font-work-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const quicksand = Quicksand({
+  variable: "--font-quicksand",
+  subsets: ["latin"],
+});
+
+const questrial = Questrial({
+  variable: "--font-questrial",
+  weight: "400", // ✅ Required
   subsets: ["latin"],
 });
 
@@ -25,19 +37,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning className={quicksand.className}>
+      <body className={` antialiased ${workSans.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex h-screen w-full items-center justify-center">
-            {children}
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
