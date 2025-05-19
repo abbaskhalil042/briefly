@@ -21,24 +21,41 @@ async function aiSummary(text: string) {
       parts: [
         {
           text: `
+Generate a professional summary of the PDF content following these strict formatting rules:
+
+Each section must start with the section title exactly as in the PDF, formatted as bold and underlined text (do not use markdown syntax, just make it visually bold and underlined).
+
+Under each section title, list key points as bullet points using a square bullet (■).
+
+Each bullet must begin with a relevant emoji that reflects the content. Do not repeat the same emoji within the same section unless absolutely necessary.
+
+Each bullet point should be 1-2 concise sentences summarizing a single key idea or fact.
+
+The entire output must be clean and visually consistent with no markdown characters (*, #, -, etc.), no extra spaces, and no additional commentary.
+
+Maintain the exact order of sections and content from the PDF.
+
+Give me a clean format with:
+
+Bold headings (no underline, just ** **)
+
+● Black circular bullet points (not dashes or numbers)
+
+Concise answers under each heading
+
+Skip any extra symbols like <u></u> or emojis
+
+Example Output:
+What is rate limiting?
+● Limits requests per user/IP to prevent abuse.
+● Protects servers from overload or attacks.
+
+How to cache database queries?
+● Use Redis for frequent query results.
+● Reduces database load and speeds up responses
+
+
          
-Analyze the PDF and generate a clear, concise summary that meets the following guidelines:
-
-Use bullet points only—no paragraphs. Each bullet must start with a relevant emoji.
-
-Summarize one key idea or fact per bullet in 1–2 sentences, focusing on clarity and brevity.
-
-Follow the exact order of sections in the PDF. Introduce each section with a bold, underlined heading.
-
-Select emojis carefully to match the content (for example, 💡 for concepts, 🔑 for security, 🚀 for processes, 🛡️ for protections). Avoid repeating the same emoji more than once per section unless necessary.
-
-Do not include any personal opinions, interpretations, or commentary. Only summarize what is explicitly stated in the PDF.
-
-Format the summary cleanly and professionally, with no markdown symbols such as asterisks *, backslashes, or excessive punctuation. The output should be easy to read and skim.
-
-Start the summary immediately after reading the PDF content.
-
-Your goal is to produce an emoji-enhanced, professional, and easy-to-digest summary that fully covers the PDF’s content without any raw markdown artifacts.
 
 `,
         },

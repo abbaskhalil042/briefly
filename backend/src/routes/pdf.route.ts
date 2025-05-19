@@ -7,9 +7,14 @@ import {
   pdfSummaryController,
 } from "../controllers/pdf.controller";
 
+
 const pdfRouter = express.Router();
 
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({ storage: multer.memoryStorage(),
+  limits:{
+    fileSize: 5 * 1024 * 1024
+  }
+ });
 
 pdfRouter.get("/summary/:userId", auth, getPdfController);
 pdfRouter.post(

@@ -5,12 +5,12 @@ import { login, register } from "../services/user.service";
 
 export const Register = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { fullName, email, password } = req.body;
-    if (!fullName || !email || !password) {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
       res.status(400).json({ message: "All fields are required" });
       return;
     }
-    const user = await register(fullName, email, password);
+    const user = await register(name, email, password);
     res.status(201).json({ message: "User registered", user });
   } catch (error: any) {
     console.log(error.message);
@@ -27,10 +27,11 @@ export const Login = async (req: Request, res: Response): Promise<void> => {
       res.status(400).json({ message: "All fields are required" });
       return;
     }
+    console.log(email, password);
 
     const user = await login(email, password);
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
-      expiresIn: "1d",
+      expiresIn: "10d",
     });
     res.status(200).json({ message: "Login successful", token, user });
   } catch (error: any) {

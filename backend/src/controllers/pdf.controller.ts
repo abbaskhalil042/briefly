@@ -27,6 +27,8 @@ export const pdfSummaryController = async (
       res.status(400).json({ message: "No file uploaded" });
       return;
     }
+
+    console.log("uploaded file from backend", req.file);
     const user = await User.findById(req.params.userId);
     if (!user) {
       res.status(404).json({ message: "User not found" });

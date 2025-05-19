@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 interface User extends mongoose.Document {
-  fullName: string;
+  name: string;
   email: string;
   password: string;
   credits: number;
@@ -11,7 +11,7 @@ interface User extends mongoose.Document {
 }
 
 const userSchema = new mongoose.Schema<User>({
-  fullName: {
+  name: {
     type: String,
   },
   email: {

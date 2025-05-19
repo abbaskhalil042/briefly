@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import Login from "./login/page";
 
 const Home = () => {
   const router = useRouter();
@@ -12,9 +13,7 @@ const Home = () => {
   };
   return (
     <div className="font-quicksand">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. In saepe quam
-      ipsam odio rem eius est corrupti placeat facere distinctio sunt, minus
-      nam, fugit ullam dicta corporis omnis! Iure, cum.
+      <Login />
     </div>
   );
 };

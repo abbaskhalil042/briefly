@@ -31,6 +31,7 @@ export const auth = async (
       token,
       process.env.JWT_SECRET as string
     ) as JwtPayload;
+    console.log("Decoded token:", decoded);
     req.user = decoded.id;
     next();
   } catch (error) {

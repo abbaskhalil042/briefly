@@ -9,6 +9,11 @@ import {
   Questrial,
 } from "next/font/google";
 import "./globals.css";
+import AuthContextProvider from "@/context/authContext";
+import { Toaster } from "@/components/ui/sonner";
+import AuthenticatedRoute from "@/auth/AuthenticatedRoute";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
@@ -38,14 +43,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={quicksand.className}>
-      <body className={` antialiased ${workSans.className}`}>
+      <body className={` antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AuthContextProvider>
+            {children}
+          </AuthContextProvider>
+
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
