@@ -1,8 +1,16 @@
 import Architecture from "./Architecture";
+import { motion } from "framer-motion";
 
 export default function DiagramWithSlogan() {
   return (
-    <div className="flex items-center justify-center lg:gap-12 px-8 rounded-full flex-col lg:flex-row text-white">
+    <motion.div 
+    
+       initial={{ opacity: 0, y: 100 }}
+      transition={{ duration: 1, delay: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+
+    className="flex items-center justify-center lg:gap-12 px-8 rounded-full flex-col lg:flex-row text-white">
       {/* SVG container */}
       <div className="flex-shrink-0">
         <Architecture />
@@ -20,6 +28,6 @@ export default function DiagramWithSlogan() {
           unprecedented insights.
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }

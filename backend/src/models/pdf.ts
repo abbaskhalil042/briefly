@@ -5,7 +5,7 @@ interface pdf extends mongoose.Document {
   summary_text: string;
   title: string;
   file_name: string;
-  userId: Types.ObjectId;
+  user: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -27,7 +27,7 @@ const pdfSchema = new mongoose.Schema<pdf>({
     type: String,
     required: true,
   },
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,

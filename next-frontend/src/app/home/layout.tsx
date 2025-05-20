@@ -12,11 +12,9 @@ export default function HomeLayout({
 }) {
   return (
     <AuthenticatedRoute>
-      <div className="overflow-hidden">
       <Navbar />
       {children}
-      <Footer />
-      </div>
+  
     </AuthenticatedRoute>
   );
 }

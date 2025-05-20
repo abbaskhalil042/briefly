@@ -4,7 +4,8 @@ import React from "react";
 import { Button } from "./ui/button";
 import { useAuth } from "@/context/authContext";
 import { motion } from "motion/react";
-import { Loader2, Wallet } from "lucide-react";
+import { Loader2, Upload, Wallet } from "lucide-react";
+import Link from "next/link";
 
 const Navbar = () => {
   const [loading, setLoading] = React.useState(false);
@@ -18,25 +19,27 @@ const Navbar = () => {
       className="flex justify-between items-center fixed top-0 left-0 right-0 z-50 px-4 py-2 "
     >
       <div>
-        <div className="relative w-8 h-8 bg-white rounded-xl bg-blend-color-burn">
-          <Image
-            src="https://patinaco.s3.ap-south-1.amazonaws.com/logo.png"
-            alt="logo"
-            fill
-            className="object-cover cursor-pointer"
-          />
-        </div>
+        <Link href="/home">
+          <div className="relative w-8 h-8 bg-white rounded-xl bg-blend-color-burn">
+            <Image
+              src="https://patinaco.s3.ap-south-1.amazonaws.com/logo.png"
+              alt="logo"
+              fill
+              className="object-contain cursor-pointer"
+            />
+          </div>
+        </Link>
       </div>
       <div className="bg-black hidden  lg:flex gap-2 fixed left-[40%] top-3 rounded-full border px-3 py-1.5">
         <ul className="flex gap-2 transition-all">
           <li className="cursor-pointer text-sm px-4 py-2 rounded-full transition-all duration-300 ease-in-out hover:bg-white/10 hover:text-white hover:shadow-md hover:scale-105">
-            Home
+            <Link href="/home">Home</Link>
           </li>
           <li className="cursor-pointer text-sm px-4 py-2 rounded-full transition-all duration-300 ease-in-out hover:bg-white/10 hover:text-white hover:shadow-md hover:scale-105">
-            Summary
+            <Link href="/home/summary">Summary</Link>
           </li>
           <li className="cursor-pointer text-sm px-4 py-2 rounded-full transition-all duration-300 ease-in-out hover:bg-white/10 hover:text-white hover:shadow-md hover:scale-105">
-            Pricing
+            <Link href="/home/pricing">Pricing</Link>
           </li>
         </ul>
       </div>
@@ -48,6 +51,11 @@ const Navbar = () => {
               <span className="text-[#f3f3ac] font-bold"> {user?.credits}</span>
             </h1>
             <h1 className="text-sm">Hello, {user?.email.split("@")[0]}</h1>
+            <Link href="/home/upload">
+              <Button className="text-base px-2 py-3 cursor-pointer">
+                <Upload className="w-4 h-4" />
+              </Button>
+            </Link>
           </div>
         )}
 

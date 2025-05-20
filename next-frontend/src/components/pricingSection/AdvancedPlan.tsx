@@ -9,7 +9,6 @@ const features = [
   "Email support",
   "5 user seats",
 ];
-
 const AdvancedPlan = () => {
   return (
     <div className="relative rounded-xl border backdrop-blur-sm h-full flex flex-col border-white/10 bg-white/5">

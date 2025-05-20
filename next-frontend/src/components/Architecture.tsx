@@ -1,8 +1,15 @@
 import React from "react";
+import {motion} from "motion/react"
 
 const Architecture = () => {
   return (
-    <div className="flex items-center justify-center w-[20rem] lg:w-full">
+    <motion.div 
+    
+       initial={{ opacity: 0, y: 100 }}
+      transition={{ duration: 1, delay: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    className="flex items-center justify-center w-[20rem] lg:w-full">
       <svg
         width="500"
         height="400"
@@ -310,7 +317,7 @@ const Architecture = () => {
           Delivery
         </text>
       </svg>
-    </div>
+    </motion.div>
   );
 };
 

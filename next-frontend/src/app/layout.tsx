@@ -43,17 +43,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={quicksand.className}>
-      <body className={` antialiased`}>
+      <body className={` antialiased flex flex-col min-h-screen`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <AuthContextProvider>
-            {children}
-          </AuthContextProvider>
-
+          <AuthContextProvider>{children}</AuthContextProvider>
+          <Footer />
           <Toaster />
         </ThemeProvider>
       </body>

@@ -1,13 +1,20 @@
-import axios from "axios";
+// api.ts
+import axios from 'axios';
 
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000",
+const instance = axios.create({
+  baseURL: 'http://localhost:5000',
   headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
-export default axiosInstance;
+// Add request interceptor to inject token dynamically
+instance.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export default instance;

@@ -2,10 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "./ui/input";
 import { useRef, useState } from "react";
-import { Sparkle } from "lucide-react";
+import { ArrowRight, ArrowRightCircle, FileText, Sparkle } from "lucide-react";
 import axiosInstance from "@/config/axiosInstance";
 import { useAuth } from "@/context/authContext";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { motion } from "motion/react";
 
 type UploadState = {
   file: File | null;
@@ -17,6 +20,7 @@ type UploadState = {
 };
 
 export default function UploadPdf() {
+  const router = useRouter();
   const { user } = useAuth();
   console.log("users creadits from upload ", user?.credits);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -97,11 +101,17 @@ export default function UploadPdf() {
         isUploading: false,
         isGenerating: false,
       }));
+
+      toast.success("Your summary is ready!");
     }
   };
 
   const renderFileUploadArea = () => (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      transition={{ duration: 1, delay: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       className="grid gap-2 cursor-pointer"
       onClick={handleFileSelect}
       role="button"
@@ -136,7 +146,7 @@ export default function UploadPdf() {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 
   const renderSummary = () => (
@@ -150,7 +160,12 @@ export default function UploadPdf() {
   );
 
   return (
-    <div className="flex items-center justify-center min-h-[100vh] px-4">
+    <motion.div
+       initial={{ opacity: 0, y: 100 }}
+      transition={{ duration: 1, delay: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    className="flex items-center justify-center min-h-[100vh] px-4">
       <div className="grid gap-6 w-full max-w-2xl p-6">
         <div className="text-center">
           <h3 className="text-lg font-semibold flex items-center justify-center text-center flex-wrap">
@@ -170,6 +185,7 @@ export default function UploadPdf() {
         {state.error && <p className="text-sm text-red-500">{state.error}</p>}
 
         <Button
+          className="cursor-pointer"
           disabled={state.isGenerating || state.isUploading || !state.file}
           onClick={handleUpload}
         >
@@ -180,10 +196,26 @@ export default function UploadPdf() {
             : "Start Generating"}
         </Button>
 
-        {state.summarizedText && renderSummary()}
-        {state.summarizedText && <Link href="/home/summary">see the summary</Link>}
+        {state.summarizedText && (
+          <Link
+            href={{
+              pathname: "/home/summary",
+              query: { summary: encodeURIComponent(state?.summarizedText) },
+            }}
+            className="inline-flex items-center justify-center"
+          >
+            <Button
+              variant="ghost"
+              className="text-blue-600 cursor-pointer hover:text-blue-800 hover:bg-blue-50 rounded-lg px-4 py-2 transition-colors duration-200 border border-blue-200"
+            >
+              <FileText className="h-5 w-5 mr-2" />
+              <span className="font-medium">View Summary</span>
+              <ArrowRightCircle className="h-5 w-5 ml-2 text-green-500" />
+            </Button>
+          </Link>
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

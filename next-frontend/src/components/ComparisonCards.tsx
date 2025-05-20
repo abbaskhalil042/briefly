@@ -1,8 +1,14 @@
 import React from 'react'
+import {motion} from "motion/react"
 
 const ComparisonCards = () => {
   return (
-   <div className="border border-white/10 m-10 rounded-3xl overflow-hidden bg-black/20 backdrop-blur-sm p-8">
+   <motion.div 
+      initial={{ opacity: 0, y: 100 }}
+      transition={{ duration: 1, delay: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+   className="border border-white/10 m-10 rounded-3xl overflow-hidden bg-black/20 backdrop-blur-sm p-8">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
     {/* Original Document */}
     <div>
@@ -101,7 +107,7 @@ const ComparisonCards = () => {
       </div>
     </div>
   </div>
-</div>
+</motion.div>
 
   )
 }

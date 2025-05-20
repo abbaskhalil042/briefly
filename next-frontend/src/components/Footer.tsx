@@ -1,9 +1,10 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { Twitter, Linkedin, Github } from "lucide-react";
 import { Button } from "@/components/ui/button"; // shadcn button
 import { useState } from "react";
 import { Input } from "./ui/input";
+import { motion } from "motion/react";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -15,7 +16,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className=" text-gray-400 py-8 px-6 w-full overflow-hidden">
+    <motion.footer
+      initial={{ opacity: 0, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className=" text-gray-400 py-8 px-6 w-full"
+    >
       <div className=" mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         {/* Brand */}
         <div className="text-[#ffffcf] font-bold text-lg">Briefly</div>
@@ -96,6 +103,6 @@ export default function Footer() {
       <div className="mt-6 text-center text-xs text-gray-500">
         &copy; {new Date().getFullYear()} Briefly. All rights reserved.
       </div>
-    </footer>
+    </motion.footer>
   );
 }

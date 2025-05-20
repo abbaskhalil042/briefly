@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 // import Blob from 'fetch-blob';
 import {
   deletePdfService,
+  getPdfByIdService,
   getPdfService,
   pdfSummaryService,
 } from "../services/pdf.service";
@@ -15,7 +16,7 @@ interface pdfTypes {
   summary_text: string;
   title: string;
   file_name: string;
-  userId: Types.ObjectId | string;
+  user: Types.ObjectId | string;
 }
 
 export const pdfSummaryController = async (
@@ -34,7 +35,6 @@ export const pdfSummaryController = async (
       res.status(404).json({ message: "User not found" });
       return;
     }
-
     if (user.credits <= 0) {
       res.status(403).json({ message: "Insufficient credits" });
       return;
@@ -48,7 +48,7 @@ export const pdfSummaryController = async (
       summary_text: summary,
       file_name: fileName,
       title: req.file.originalname,
-      userId: new Types.ObjectId(req.params.userId as string),
+      user: new Types.ObjectId(req.params.userId as string),
     });
 
     user.pdfs.push(pdf._id as mongoose.Types.ObjectId);
@@ -68,10 +68,41 @@ export const pdfSummaryController = async (
 export const getPdfController = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
+
+    if (!userId) {
+      res.status(400).json({ message: "User ID is required" });
+      return;
+    }
     const pdfs = await getPdfService(userId);
-    res.status(200).json(pdfs);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to get PDFs", error });
+    res.status(200).json({
+      success: true,
+      count: pdfs.length,
+      data: pdfs,
+    });
+  } catch (error: any) {
+    const status = error.statusCode || 500;
+    const response = {
+      success: false,
+      message: error.message,
+      ...(error.validation && { errors: error.validation }),
+    };
+
+    res.status(status).json(response);
+    return;
+  }
+};
+
+//*get pdf by pdf if
+export const getPdfByIdController = async (req: Request, res: Response) => {
+  try {
+    const { pdfId } = req.params;
+    const pdf = await getPdfByIdService(pdfId);
+    res.status(200).json({
+      success: true,
+      data: pdf,
+    });
+  } catch (error: any) {
+    console.log(error);
   }
 };
 
@@ -90,7 +121,7 @@ export const deletePdfController = async (req: Request, res: Response) => {
       return;
     }
 
-    if (deletedPdf?.userId?.toString() !== userId) {
+    if (deletedPdf?.user?.toString() !== userId) {
       res.status(403).json({ message: "Unauthorized to delete this PDF" });
       return;
     }

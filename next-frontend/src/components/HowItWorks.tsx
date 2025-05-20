@@ -1,8 +1,14 @@
 import React from "react";
+import { motion } from "motion/react";
 
 const HowItWorks = () => {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      transition={{ duration: 1, delay: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
       <div className="text-center m-16">
         <h1 className="text-4xl font-bold"> Seamless Document Processing</h1>
         <p className="mt-4  ">
@@ -108,7 +114,14 @@ const HowItWorks = () => {
           ];
 
           return (
-            <div key={step} style={{ opacity: 1, transform: "none" }}>
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              key={step}
+              style={{ opacity: 1, transform: "none" }}
+            >
               <div className="flex flex-col items-center">
                 <div className="relative mb-4">
                   <div className="relative cursor-pointer">
@@ -140,11 +153,11 @@ const HowItWorks = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
