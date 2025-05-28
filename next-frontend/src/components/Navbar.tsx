@@ -8,7 +8,8 @@ import { AlignRight, Loader2, Upload, Wallet, X } from "lucide-react";
 import Link from "next/link";
 
 const Navbar = () => {
-  const [loading, _setLoading] = useState(false);
+  //  @typescript-eslint/no-unused-vars
+  const [loading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
   const handleOpenClose = () => setIsOpen(!isOpen);

@@ -12,7 +12,6 @@ export default function HomeLayout({
     <AuthenticatedRoute>
       <Navbar />
       {children}
-  
     </AuthenticatedRoute>
   );
 }

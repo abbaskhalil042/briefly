@@ -23,28 +23,47 @@ const SummaryPage = () => {
     return text.replace(/<u>(.*?)<\/u>/g, "$1");
   };
 
-  const getSingleSummary = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-      const res = await axiosInstance.get(`api/v1/pdf/get-pdf/${params._id}`);
-      const formatText = formatSummaryText(res.data.data.summary_text);
-      setSummary({ ...res.data.data, summary_text: formatText });
-    } catch (error) {
-      console.error("Error fetching summary:", error);
-      setError(
-        error instanceof Error
-          ? error.message
-          : "An unknown error occurred while loading the summary"
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const getSingleSummary = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     setError(null);
+  //     const res = await axiosInstance.get(`api/v1/pdf/get-pdf/${params._id}`);
+  //     const formatText = formatSummaryText(res.data.data.summary_text);
+  //     setSummary({ ...res.data.data, summary_text: formatText });
+  //   } catch (error) {
+  //     console.error("Error fetching summary:", error);
+  //     setError(
+  //       error instanceof Error
+  //         ? error.message
+  //         : "An unknown error occurred while loading the summary"
+  //     );
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const res = await axiosInstance.get(`api/v1/pdf/get-pdf/${params._id}`);
+        const formatText = formatSummaryText(res.data.data.summary_text);
+        setSummary({ ...res.data.data, summary_text: formatText });
+      } catch (error) {
+        console.error("Error fetching summary:", error);
+        setError(
+          error instanceof Error
+            ? error.message
+            : "An unknown error occurred while loading the summary"
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     if (params._id) {
-      getSingleSummary();
+      fetchSummary();
     }
   }, [params._id]);
 

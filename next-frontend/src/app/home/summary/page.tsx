@@ -1,7 +1,6 @@
 "use client";
 import axiosInstance from "@/config/axiosInstance";
 import { useAuth } from "@/context/authContext";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { Button } from "@/components/ui/button";
@@ -21,10 +20,6 @@ const Summary = () => {
   const { user } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [allSummary, setAllSummary] = useState<AllSummary[]>([]);
-  const searchParams = useSearchParams();
-  // const encodedSummary = searchParams.get("summary");
-  // const pdfId = searchParams.get("pdfId");
-  // const summary = encodedSummary ? decodeURIComponent(encodedSummary) : "";
 
   const getAllSummary = async () => {
     setError(null);
@@ -46,8 +41,18 @@ const Summary = () => {
   };
 
   useEffect(() => {
+    const fetchAllSummary = async () => {
+      setError(null);
+      try {
+        const res = await axiosInstance.get(`/api/v1/pdf/${user?._id}`);
+        setAllSummary(res.data.data || []);
+      } catch (error: unknown) {
+        setError(error instanceof Error ? error.message : "An error occurred");
+      }
+    };
+
     if (user?._id) {
-      getAllSummary();
+      fetchAllSummary();
     }
   }, [user?._id]);
 
