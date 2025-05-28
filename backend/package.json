@@ -6,8 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts"
+    "start": "node ./dist/index.js",
+    "dev": "nodemon ./src/index.ts"
   },
   "keywords": [
     "langchain",
