@@ -26,6 +26,7 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/mongoose": "^5.11.96",
     "@types/multer": "^1.4.12",
+    "@types/node": "^22.15.23",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
@@ -35,14 +36,13 @@
     "@google/generative-ai": "^0.24.1",
     "@langchain/community": "^0.3.43",
     "@langchain/core": "^0.3.56",
-    "@types/node": "^22.15.23",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "fetch-blob": "^4.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.15.0",
+    "mongoose": "^8.15.1",
     "multer": "^1.4.5-lts.2",
     "pdf-parse": "^1.1.1",
     "razorpay": "^2.9.6"
