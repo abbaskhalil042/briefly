@@ -9,5 +9,8 @@ export const createOrder = async (plan: string, token: string) => {
     body: JSON.stringify({ plan }),
   });
 
+  // const data = await res.json();
+  // console.log("data from create order", data);
+
   return await res.json();
 };

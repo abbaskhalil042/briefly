@@ -5,6 +5,8 @@ import BasicPlan from "./pricingSection/BasicPlan";
 import AdvancedPlan from "./pricingSection/AdvancedPlan";
 import CustomPlan from "./pricingSection/CustomPlan";
 import { createOrder } from "@/utils/createOrder";
+import { useAuth } from "@/context/authContext";
+import { toast } from "sonner";
 
 declare global {
   interface Window {
@@ -12,6 +14,7 @@ declare global {
   }
 }
 const PlanCard = () => {
+  const { setUser } = useAuth();
   const [isRazorpayLoaded, setIsRazorpayLoaded] = useState(false);
 
   useEffect(() => {
@@ -44,7 +47,7 @@ const PlanCard = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({
             razorpay_order_id: response.razorpay_order_id,
@@ -54,7 +57,10 @@ const PlanCard = () => {
           }),
         });
 
-        alert("Payment successful!");
+        toast("Payment successful!");
+        setUser((prevUser) =>
+          prevUser ? { ...prevUser, credits: 100 } : null
+        );
         // TODO: refresh user credits or state here
       },
       theme: {
@@ -67,6 +73,7 @@ const PlanCard = () => {
   };
 
   return (
+    <div className="flex flex-col items-center mt-18 justify-center lg:h-[70dvh] ">
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
@@ -76,7 +83,7 @@ const PlanCard = () => {
         staggerChildren: 0.2,
       }}
       viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-      className="flex gap-3 md:gap-5 m-5 md:m-10 flex-col lg:flex-row"
+      className="flex gap-3  md:gap-5 m-5 md:m-10 flex-col lg:flex-row "
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -105,6 +112,7 @@ const PlanCard = () => {
         <CustomPlan onClick={() => handlePayment("$29")} />
       </motion.div>
     </motion.div>
+    </div>
   );
 };
 

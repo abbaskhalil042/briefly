@@ -23,6 +23,7 @@ const Summary = () => {
   const [allSummary, setAllSummary] = useState<AllSummary[]>([]);
   const searchParams = useSearchParams();
   const encodedSummary = searchParams.get("summary");
+  // const pdfId = searchParams.get("pdfId");
   const summary = encodedSummary ? decodeURIComponent(encodedSummary) : "";
 
   const getAllSummary = async () => {
@@ -32,6 +33,15 @@ const Summary = () => {
       setAllSummary(res.data.data || []); // Assuming your API returns { data: [...] }
     } catch (error: any) {
       setError(error.message || "Failed to fetch summaries");
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      const res = await axiosInstance.delete(`/api/v1/pdf/delete-pdf/${id}`);
+      getAllSummary();
+    } catch (error: any) {
+      console.log(error.message);
     }
   };
 
@@ -106,9 +116,7 @@ const Summary = () => {
                       variant="destructive"
                       size="sm"
                       className="rounded-full px-3 cursor-pointer"
-                      onClick={() => {
-                        /* Delete logic */
-                      }}
+                      onClick={() => handleDelete(summary._id)}
                     >
                       <Trash size={14} />
                     </Button>

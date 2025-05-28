@@ -80,6 +80,8 @@ export const verifyPayment = async (
     user.razorpayPaymentId = razorpay_payment_id;
     await user.save();
 
+    console.log("Payment verified for user:", user);
+
     res
       .status(200)
       .json({ success: true, message: "Payment verified & user updated" });

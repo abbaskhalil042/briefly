@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/user";
 import { login, register } from "../services/user.service";
+import { CustomRequest } from "../middleware/auth";
 
 export const Register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -38,4 +39,13 @@ export const Login = async (req: Request, res: Response): Promise<void> => {
     console.log(error.message);
     res.status(500).json({ message: "Login failed", error });
   }
+};
+
+// GET /api/v1/user/me
+export const getMe = async (
+  req: CustomRequest,
+  res: Response
+): Promise<void> => {
+  const user = await User.findById(req.user).select("-password");
+  res.status(200).json({ user });
 };
