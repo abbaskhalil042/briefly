@@ -41,14 +41,10 @@ const Register = () => {
       } else {
         throw new Error(res.data.message || "Registration failed");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Registration error:", error);
-
       const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "An unknown error occurred";
-
+        error instanceof Error ? error.message : "An unknown error occurred";
       setError("root", { message: errorMessage });
       toast.error(errorMessage);
     }

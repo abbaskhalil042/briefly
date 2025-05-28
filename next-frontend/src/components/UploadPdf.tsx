@@ -2,11 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "./ui/input";
 import { useRef, useState } from "react";
-import { ArrowRight, ArrowRightCircle, FileText, Sparkle } from "lucide-react";
+import { ArrowRightCircle, FileText, Sparkle } from "lucide-react";
 import axiosInstance from "@/config/axiosInstance";
 import { useAuth } from "@/context/authContext";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { motion } from "motion/react";
 
@@ -20,7 +19,6 @@ type UploadState = {
 };
 
 export default function UploadPdf() {
-  const router = useRouter();
   const { user, setUser } = useAuth();
   console.log("users creadits from upload ", user?.credits);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -105,14 +103,12 @@ export default function UploadPdf() {
 
       const summary = await uploadFile(state.file, user._id);
       setState((prev) => ({ ...prev, summarizedText: summary }));
-    } catch (error: any) {
+    } catch (error: unknown) {
       setState((prev) => ({
         ...prev,
-        error:
-          error?.response?.data?.message ||
-          error.message ||
-          "Something went wrong",
+        error: error instanceof Error ? error.message : "An error occurred",
       }));
+      toast.error(error instanceof Error ? error.message : "An error occurred");
     } finally {
       setState((prev) => ({
         ...prev,
@@ -167,15 +163,15 @@ export default function UploadPdf() {
     </motion.div>
   );
 
-  const renderSummary = () => (
-    <div className="mt-4 p-4 border rounded-lg bg-gray-50 dark:bg-gray-800">
-      <h4 className="font-semibold mb-2">Summary:</h4>
-      <div
-        className="whitespace-pre-line"
-        dangerouslySetInnerHTML={{ __html: state.summarizedText || "" }}
-      />
-    </div>
-  );
+  // const renderSummary = () => (
+  //   <div className="mt-4 p-4 border rounded-lg bg-gray-50 dark:bg-gray-800">
+  //     <h4 className="font-semibold mb-2">Summary:</h4>
+  //     <div
+  //       className="whitespace-pre-line"
+  //       dangerouslySetInnerHTML={{ __html: state.summarizedText || "" }}
+  //     />
+  //   </div>
+  // );
 
   return (
     <motion.div

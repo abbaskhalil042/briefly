@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import loginSchema from "../../../zodTypes/login";
 import axiosInstance from "@/config/axiosInstance";
-import { AuthContext, useAuth } from "@/context/authContext";
+import { useAuth } from "@/context/authContext";
 import { Loader } from "lucide-react";
 import { z } from "zod";
 import { FlipWords } from "@/components/ui/flip-words";
@@ -50,11 +50,19 @@ const Login = () => {
       console.log(res.data);
       reset();
       toast(res.data.message);
-    } catch (error: any) {
-      console.log(error);
-      setError("root", {
-        message: error.message,
-      });
+    } catch (error: unknown) {
+      // `unknown` is safer than `any`
+      console.error(error);
+
+      if (error instanceof Error) {
+        setError("root", {
+          message: error.message, // Now TypeScript knows `error` is an `Error`
+        });
+      } else {
+        setError("root", {
+          message: "An unknown error occurred",
+        });
+      }
     }
   };
 
@@ -117,7 +125,7 @@ const Login = () => {
         </div>
         <div className="flex flex-col mt-1 items-center">
           <small>
-            Don't have an account?{" "}
+            Don't have an account?
             <Link href="/register" className="text-blue-500 ">
               Register
             </Link>

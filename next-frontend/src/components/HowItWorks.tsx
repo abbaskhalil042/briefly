@@ -28,6 +28,7 @@ const HowItWorks = () => {
 
           const icons = [
             <svg
+              key={step}
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -43,6 +44,7 @@ const HowItWorks = () => {
               <path d="m8 17 4-4 4 4" />
             </svg>,
             <svg
+              key={step}
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -60,6 +62,7 @@ const HowItWorks = () => {
               <path d="M16 17H8" />
             </svg>,
             <svg
+              key={step}
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -85,6 +88,7 @@ const HowItWorks = () => {
               <circle cx="20" cy="8" r=".5" />
             </svg>,
             <svg
+              key={step}
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

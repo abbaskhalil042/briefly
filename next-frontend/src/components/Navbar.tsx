@@ -4,19 +4,11 @@ import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { useAuth } from "@/context/authContext";
 import { motion } from "motion/react";
-import {
-  AlignRight,
-  Cross,
-  CrossIcon,
-  Loader2,
-  Upload,
-  Wallet,
-  X,
-} from "lucide-react";
+import { AlignRight, Loader2, Upload, Wallet, X } from "lucide-react";
 import Link from "next/link";
 
 const Navbar = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, _] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
   const handleOpenClose = () => setIsOpen(!isOpen);

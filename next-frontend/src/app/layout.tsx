@@ -1,33 +1,15 @@
 import { ThemeProvider } from "@/components/theme-provider";
 
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Work_Sans,
-  Quicksand,
-  Questrial,
-} from "next/font/google";
+import { Quicksand } from "next/font/google";
 import "./globals.css";
 import AuthContextProvider from "@/context/authContext";
 import { Toaster } from "@/components/ui/sonner";
-import AuthenticatedRoute from "@/auth/AuthenticatedRoute";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
-  subsets: ["latin"],
-});
+import Footer from "@/components/Footer";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
-  subsets: ["latin"],
-});
-
-const questrial = Questrial({
-  variable: "--font-questrial",
-  weight: "400", // ✅ Required
   subsets: ["latin"],
 });
 
