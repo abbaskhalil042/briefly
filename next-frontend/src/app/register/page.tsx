@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import axiosInstance from "@/config/axiosInstance";
 import { z } from "zod";
 import { Loader } from "lucide-react";
+import { FlipWords } from "@/components/ui/flip-words";
 
 type FormFields = z.infer<typeof registerSchema>;
 
@@ -56,6 +57,15 @@ const Register = () => {
   return (
     <div className="m- gap-1.5 items-center h-screen flex">
       <div className="right flex-col p-10 flex items-center justify-center h-[98dvh] rounded-2xl w-full lg:w-1/2">
+        <div className="text-3xl md:text-4xl mb-10 mx-auto font-semibold text-neutral-800  leading-tight">
+          Summarize&nbsp;
+          <FlipWords
+            className="text-[#FFFFE3]"
+            words={["faster", "smarter", "effortlessly", "instantly"]}
+          />
+          <br />
+          your PDFs with Briefly AI
+        </div>
         <div className="flex flex-col items-center gap-4 border-[1px] p-10 rounded-2xl">
           <h1 className="text-2xl">
             Register to <span className="text-[#FFFFE3]">Briefly</span>

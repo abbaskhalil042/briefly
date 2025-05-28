@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Download, Trash } from "lucide-react";
 import Link from "next/link";
 import { motion } from "motion/react";
+import Image from "next/image";
 
 interface AllSummary {
   _id: string;
@@ -59,40 +60,52 @@ const Summary = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {allSummary.map((summary) => (
-            <Link href={`/home/summary/${summary._id}`} key={summary._id}>
+            <>
               <BackgroundGradient
                 key={summary._id}
                 className="rounded-[22px] h-full p-4 bg-white dark:bg-zinc-900 hover:scale-105 transition-transform"
               >
                 <div className="flex flex-col h-full">
-                  <div className="flex-grow">
-                    <div className="w-full h-32 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-zinc-800 dark:to-zinc-700 rounded-lg mb-3 flex items-center justify-center">
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
-                        PDF Preview
-                      </span>
+                  <Link href={`/home/summary/${summary._id}`} key={summary._id}>
+                    <div className="flex-grow">
+                      <div className="w-full h-32 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-zinc-800 dark:to-zinc-700 rounded-lg mb-3 flex items-center justify-center">
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                          <Image
+                            src="https://patinaco.s3.ap-south-1.amazonaws.com/logo.png"
+                            alt="logo"
+                            width={100}
+                            height={100}
+                            // fill
+                            className="object-contain cursor-pointer "
+                          />
+                        </span>
+                      </div>
+                      <p className="text-base font-medium text-black dark:text-neutral-200 line-clamp-1">
+                        {summary.file_name}
+                      </p>
+                      <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-3 mt-1">
+                        {summary.summary_text}
+                      </p>
                     </div>
-                    <p className="text-base font-medium text-black dark:text-neutral-200 line-clamp-1">
-                      {summary.file_name}
-                    </p>
-                    <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-3 mt-1">
-                      {summary.summary_text}
-                    </p>
-                  </div>
+                  </Link>
                   <div className="flex justify-between items-center mt-3">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="rounded-full px-3"
-                      onClick={() => {
-                        /* Download logic */
-                      }}
+                    <Link
+                      href={`${summary.file_name}.pdf`}
+                      target="_blank"
+                      download
                     >
-                      <Download size={14} />
-                    </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="rounded-full px-3 cursor-pointer"
+                      >
+                        <Download size={14} />
+                      </Button>
+                    </Link>
                     <Button
                       variant="destructive"
                       size="sm"
-                      className="rounded-full px-3"
+                      className="rounded-full px-3 cursor-pointer"
                       onClick={() => {
                         /* Delete logic */
                       }}
@@ -102,7 +115,7 @@ const Summary = () => {
                   </div>
                 </div>
               </BackgroundGradient>
-            </Link>
+            </>
           ))}
         </div>
       )}

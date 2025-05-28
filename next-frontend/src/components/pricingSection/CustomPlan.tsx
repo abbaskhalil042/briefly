@@ -9,7 +9,11 @@ const customFeatures = [
   "Unlimited user seats",
 ];
 
-const CustomPlan = () => {
+interface CustomPlanProps {
+  onClick: () => void;
+}
+
+const CustomPlan = ({ onClick }: CustomPlanProps) => {
   return (
     <div className="relative rounded-xl border backdrop-blur-sm h-full flex flex-col border-white/10 bg-white/5">
       <div className="p-6 flex-1">
@@ -35,8 +39,11 @@ const CustomPlan = () => {
         </ul>
       </div>
       <div className="p-6 border-t border-white/10 mt-auto">
-        <Button className="w-full cursor-pointer rounded-full">
-          Start Free Trial
+        <Button
+          onClick={onClick}
+          className="w-full cursor-pointer rounded-full"
+        >
+          Buy Now
         </Button>
       </div>
     </div>

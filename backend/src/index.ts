@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/user.route";
 import dbConnect from "./config/db";
 import pdfRouter from "./routes/pdf.route";
+import paymentRouter from "./routes/payment.route";
 dotenv.config();
 
 const app = express();
@@ -14,6 +15,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
 app.use("/api/v1/auth", userRouter);
 app.use("/api/v1/pdf", pdfRouter);
+app.use("/api/v1/payment", paymentRouter);
 
 app.listen(PORT, () => {
   dbConnect();

@@ -2,7 +2,10 @@ import { Check } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 
-const BasicPlan = () => {
+interface BasicPlanProps {
+  onClick: () => void;
+}
+const BasicPlan = ({ onClick }: BasicPlanProps) => {
   return (
     <div className="relative rounded-xl border backdrop-blur-sm h-full flex flex-col border-white/10 bg-white/5">
       <div className="p-6 flex-1">
@@ -34,8 +37,8 @@ const BasicPlan = () => {
         </ul>
       </div>
       <div className="p-6 border-t border-white/10 mt-auto">
-        <Button className="w-full cursor-pointer rounded-full">
-          Start Free Trial
+        <Button onClick={onClick} className="w-full cursor-pointer rounded-full">
+          Buy Now
         </Button>
       </div>
     </div>

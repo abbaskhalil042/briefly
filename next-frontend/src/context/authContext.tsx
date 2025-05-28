@@ -48,9 +48,10 @@ const AuthContextProvider = ({
   useEffect(() => {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
-
     if (token && user) {
       setToken(token);
+      setUser(JSON.parse(user));
+
       try {
         const parsedUser = JSON.parse(user);
         setUser(parsedUser);

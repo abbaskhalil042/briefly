@@ -1,7 +1,6 @@
 import { Check } from "lucide-react";
 import { Button } from "../ui/button";
 
-
 const features = [
   "50 document summaries/month",
   "Up to 100 pages per document",
@@ -9,7 +8,11 @@ const features = [
   "Email support",
   "5 user seats",
 ];
-const AdvancedPlan = () => {
+
+interface AdvancedPlanProps {
+  onClick: () => void;
+}
+const AdvancedPlan = ({ onClick }: AdvancedPlanProps) => {
   return (
     <div className="relative rounded-xl border backdrop-blur-sm h-full flex flex-col border-white/10 bg-white/5">
       <div className="p-6 flex-1">
@@ -35,8 +38,11 @@ const AdvancedPlan = () => {
         </ul>
       </div>
       <div className="p-6 border-t border-white/10 mt-auto">
-        <Button className="w-full cursor-pointer rounded-full">
-          Start Free Trial
+        <Button
+          onClick={onClick}
+          className="w-full cursor-pointer rounded-full"
+        >
+          Buy Now
         </Button>
       </div>
     </div>

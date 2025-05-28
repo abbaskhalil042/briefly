@@ -12,6 +12,7 @@ import axiosInstance from "@/config/axiosInstance";
 import { AuthContext, useAuth } from "@/context/authContext";
 import { Loader } from "lucide-react";
 import { z } from "zod";
+import { FlipWords } from "@/components/ui/flip-words";
 
 type FormFields = z.infer<typeof loginSchema>;
 
@@ -32,7 +33,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
       const res = await axiosInstance.post("/api/v1/auth/login", data);
-      console.log("from login:#########",res.data.user._id);
+      console.log("from login:#########", res.data.user._id);
       console.log(res.data.user);
       localStorage.setItem("token", res.data.token);
 
@@ -72,6 +73,15 @@ const Login = () => {
       </div>
 
       <div className="right flex-col p-10 flex items-center justify-center h-[98dvh]rounded-2xl w-full lg:w-1/2">
+        <div className="text-3xl md:text-4xl mb-10 mx-auto font-semibold text-neutral-800  leading-tight">
+          Summarize&nbsp;
+          <FlipWords
+            className="text-[#FFFFE3]"
+            words={["faster", "smarter", "effortlessly", "instantly"]}
+          />
+          <br />
+          your PDFs with Briefly AI
+        </div>
         <div className="flex flex-col items-center gap-4 border-[1px] p-10 rounded-2xl">
           <h1 className="text-2xl">
             Login to <span className="text-[#FFFFE3]">Briefly</span>

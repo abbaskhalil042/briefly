@@ -20,12 +20,14 @@ const Navbar = () => {
     >
       <div>
         <Link href="/home">
-          <div className="relative w-8 h-8 bg-white rounded-xl bg-blend-color-burn">
+          <div className="relative w-8 h-8 bg-white rounded-xl bg-blend-color-burn flex items-center">
             <Image
               src="https://patinaco.s3.ap-south-1.amazonaws.com/logo.png"
               alt="logo"
-              fill
-              className="object-contain cursor-pointer"
+              width={100}
+              height={100}
+              // fill
+              className="object-contain cursor-pointer "
             />
           </div>
         </Link>

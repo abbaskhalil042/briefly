@@ -21,7 +21,7 @@ type UploadState = {
 
 export default function UploadPdf() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   console.log("users creadits from upload ", user?.credits);
   const inputRef = useRef<HTMLInputElement>(null);
   const [state, setState] = useState<UploadState>({
@@ -61,6 +61,24 @@ export default function UploadPdf() {
       `/api/v1/pdf/upload/${userId}`,
       formData,
       { headers: { "Content-Type": "multipart/form-data" } }
+    );
+
+    console.log(
+      "res.data from upload ########################",
+      res.data.updatedCredits
+    );
+
+    setUser((prevUser) =>
+      prevUser ? { ...prevUser, credits: res.data.updatedCredits } : prevUser
+    );
+
+    // Also update localStorage
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        ...user,
+        credits: res.data.updatedCredits,
+      })
     );
 
     return formatSummaryText(res.data.pdf.summary_text);
@@ -161,11 +179,12 @@ export default function UploadPdf() {
 
   return (
     <motion.div
-       initial={{ opacity: 0, y: 100 }}
+      initial={{ opacity: 0, y: 100 }}
       transition={{ duration: 1, delay: 0.5 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-    className="flex items-center justify-center min-h-[100vh] px-4">
+      className="flex items-center justify-center min-h-[100vh] px-4"
+    >
       <div className="grid gap-6 w-full max-w-2xl p-6">
         <div className="text-center">
           <h3 className="text-lg font-semibold flex items-center justify-center text-center flex-wrap">
