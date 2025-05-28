@@ -12,29 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.auth = void 0;
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+const mongoose_1 = __importDefault(require("mongoose"));
+const dbConnect = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
-        console.log("Authorization header:", req.headers.authorization);
-        console.log("Extracted token:", token);
-        if (!token) {
-            res.status(401).json({ message: "Unauthorized" });
-            return;
-        }
-        const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
-        console.log("Decoded token:", decoded);
-        req.user = decoded.id;
-        next();
+        mongoose_1.default
+            .connect(process.env.MONGO_URI)
+            .then(() => console.log("✅ Connected to MongoDB"))
+            .catch((err) => console.error("MongoDB connection error:", err));
     }
     catch (error) {
         console.log(error);
-        res.status(401).json({ message: "Invalid token" });
-        throw error;
+        process.exit(1);
     }
 });
-exports.auth = auth;
+exports.default = dbConnect;

@@ -23,7 +23,7 @@ const pdfSchema = new mongoose_1.default.Schema({
     },
     user: {
         type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: "User", // Referencing the User model
+        ref: "User",
         required: true,
     },
     createdAt: {

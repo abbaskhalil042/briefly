@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const userSchema = new mongoose_1.default.Schema({
-    fullName: {
+    name: {
         type: String,
     },
     email: {
@@ -17,6 +17,17 @@ const userSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
+    credits: {
+        type: Number,
+        default: 10,
+    },
+    isPremium: {
+        type: Boolean,
+        default: false,
+    },
+    razorpayPaymentId: {
+        type: String,
+    },
     pdfs: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Pdf" }],
     createdAt: {
         type: Date,
@@ -26,6 +37,6 @@ const userSchema = new mongoose_1.default.Schema({
         type: Date,
         default: Date.now,
     },
-});
+}, { timestamps: true });
 const User = mongoose_1.default.model("User", userSchema);
 exports.default = User;
