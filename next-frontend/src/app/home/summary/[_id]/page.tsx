@@ -10,7 +10,7 @@ interface Summary {
   summary_text: string;
 }
 
-const page = () => {
+const SummaryPage = () => {
   const [summary, setSummary] = useState<Summary>({
     original_file: "",
     summary_text: "",
@@ -30,11 +30,13 @@ const page = () => {
       const res = await axiosInstance.get(`api/v1/pdf/get-pdf/${params._id}`);
       const formatText = formatSummaryText(res.data.data.summary_text);
       setSummary({ ...res.data.data, summary_text: formatText });
-
-      console.log("res.data from single pdf", res.data);
-    } catch (error: any) {
-      console.error(error);
-      setError(error.response?.data?.message || "Failed to load summary");
+    } catch (error) {
+      console.error("Error fetching summary:", error);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "An unknown error occurred while loading the summary"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -84,4 +86,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SummaryPage;

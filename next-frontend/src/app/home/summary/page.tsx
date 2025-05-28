@@ -22,26 +22,26 @@ const Summary = () => {
   const [error, setError] = useState<string | null>(null);
   const [allSummary, setAllSummary] = useState<AllSummary[]>([]);
   const searchParams = useSearchParams();
-  const encodedSummary = searchParams.get("summary");
+  // const encodedSummary = searchParams.get("summary");
   // const pdfId = searchParams.get("pdfId");
-  const summary = encodedSummary ? decodeURIComponent(encodedSummary) : "";
+  // const summary = encodedSummary ? decodeURIComponent(encodedSummary) : "";
 
   const getAllSummary = async () => {
     setError(null);
     try {
       const res = await axiosInstance.get(`/api/v1/pdf/${user?._id}`);
       setAllSummary(res.data.data || []); // Assuming your API returns { data: [...] }
-    } catch (error: any) {
-      setError(error.message || "Failed to fetch summaries");
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "An error occurred");
     }
   };
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await axiosInstance.delete(`/api/v1/pdf/delete-pdf/${id}`);
+      await axiosInstance.delete(`/api/v1/pdf/delete-pdf/${id}`);
       getAllSummary();
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "An error occurred");
     }
   };
 

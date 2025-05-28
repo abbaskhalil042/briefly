@@ -46,7 +46,10 @@ interface RazorpaySuccessResponse {
 interface RazorpayInstance {
   open: () => void;
   close: () => void;
-  on: (event: string, callback: (response: any) => void) => void;
+  on: (
+    event: string,
+    callback: (response: RazorpaySuccessResponse) => void
+  ) => void;
 }
 const PlanCard = () => {
   const { setUser } = useAuth();

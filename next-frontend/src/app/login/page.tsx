@@ -125,7 +125,7 @@ const Login = () => {
         </div>
         <div className="flex flex-col mt-1 items-center">
           <small>
-            Don't have an account?
+            Do not have an account?
             <Link href="/register" className="text-blue-500 ">
               Register
             </Link>
