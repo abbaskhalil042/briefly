@@ -94,7 +94,7 @@ const PlanCard = () => {
         handler: async (response: RazorpaySuccessResponse) => {
           try {
             const verification = await fetch(
-              "http://localhost:5000/api/v1/payment/verify-payment",
+              "https://briefly-s1r0.onrender.com/api/v1/payment/verify-payment",
               {
                 method: "POST",
                 headers: {
