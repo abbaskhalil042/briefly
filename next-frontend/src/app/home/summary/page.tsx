@@ -104,11 +104,11 @@ const Summary = () => {
                     </div>
                   </Link>
                   <div className="flex justify-between items-center mt-3">
-                    <Link
-                      href={`${summary.file_name}.pdf`}
+                    {/* <Link
+                      // href={`${summary.file_name}.pdf`}
                       target="_blank"
                       download
-                    >
+                    > */}
                       <Button
                         variant="outline"
                         size="sm"
@@ -116,7 +116,7 @@ const Summary = () => {
                       >
                         <Download size={14} />
                       </Button>
-                    </Link>
+                    {/* </Link> */}
                     <Button
                       variant="destructive"
                       size="sm"
