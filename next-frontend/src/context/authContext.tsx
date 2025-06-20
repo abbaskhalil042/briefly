@@ -47,19 +47,20 @@ const AuthContextProvider = ({
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
-    if (token && user) {
+    const storedUser = localStorage.getItem("user");
+
+    if (token && storedUser) {
       setToken(token);
-      setUser(JSON.parse(user));
 
       try {
-        const parsedUser = JSON.parse(user);
+        const parsedUser = JSON.parse(storedUser);
         setUser(parsedUser);
       } catch (error) {
         console.error("Failed to parse user from localStorage", error);
         setUser(null);
       }
     }
+
     setLoading(false);
   }, []);
 
